@@ -22,7 +22,7 @@ class UsersRequest extends FormRequest
             'role_id' => 'required',
             'is_active' => 'required',
             'password' => 'required',
-            'file' => 'required'
+            'photo_id' => 'required'
 
         ];
     }
