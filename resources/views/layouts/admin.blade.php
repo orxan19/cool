@@ -15,6 +15,7 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
+    
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -123,11 +124,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Users<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/admin/users">All Users</a>
+                                <a href="{{ route('users.index') }}">All Users</a>
                             </li>
 
                             <li>
-                                <a href="/admin/users/create">Create User</a>
+                                <a href="{{ route('users.create') }}">Create User</a>
                             </li>
 
                         </ul>
@@ -349,8 +350,8 @@
 <!-- jQuery -->
 <script src="{{asset('js/libs.js')}}"></script>
 
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.4/metisMenu.min.js"></script>
+
 
 
 @yield('footer')
