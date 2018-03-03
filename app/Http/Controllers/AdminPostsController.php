@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostsCreateRequest;
 use App\Post;
 use App\Photo;
+use App\Category;
 use Illuminate\Support\Facades\Auth;
+
+
 
 class AdminPostsController extends Controller
 {
@@ -28,8 +31,9 @@ class AdminPostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.posts.create');
+    {   
+        $categories = Category::pluck('name', 'id')->all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -45,7 +49,9 @@ class AdminPostsController extends Controller
 
         $user = Auth::user();
 
+        
         if($file = $request->file('photo_id')){
+
             $name = time() . $file->getClientOriginalName();
 
             $file->move('images', $name);
@@ -53,10 +59,7 @@ class AdminPostsController extends Controller
             $photo = Photo::create(['file' => $name]);
 
             $input['photo_id'] = $photo->id;
-
-
-
-        } 
+        }
 
         // Category not must be NULL
         // $input['category_id'] = 0;
@@ -84,8 +87,12 @@ class AdminPostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        
+    {   
+
+        $post = Post::findOrFail($id);
+
+        $categories = Category::pluck('name', 'id');
+        return view('admin.posts.edit', compact('post', 'categories'));
         
     }
 
@@ -96,19 +103,35 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsCreateRequest $request, $id)
     {
-        //
+        $input = $request->all();
+
+        
+        if($file = $request->file('photo_id')){
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file' => $name]);
+
+            $input['photo_id'] = $photo->id;
+        }
+
+        
+        $user = Auth::user();
+        $user->posts()->whereId($id)->first()->update($input);   
+
+        return redirect('admin/posts');
+
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         //
     }
+    
 }

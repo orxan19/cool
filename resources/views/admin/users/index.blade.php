@@ -2,6 +2,12 @@
 
 
 @section('content')
+@php
+    use Carbon\Carbon;
+
+    $locale = session()->get('locale');
+    Carbon::setLocale($locale);
+@endphp
 
     @if(Session::has('deleted_user'))
         <p class="lead bg-danger">{{ session('deleted_user') }}</p>
