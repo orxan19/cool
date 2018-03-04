@@ -7,7 +7,7 @@
  <div class="row">
 
     <div class="col-md-4">
-        <img src="{{$post->photo->file}}" class="img-responsive img-rounded" alt="">
+        <img src="{{$post->photo ? $post->photo->file : 'Not exist'}}" class="img-responsive img-rounded" alt="">
     </div>
 
     <div class="col-md-8">
