@@ -95,6 +95,8 @@ class AdminUsersController extends Controller
         }
 
         if ($file = $request->file('photo_id')) {
+
+            unlink(public_path()  . $user->photo->file);
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);  
 
@@ -126,6 +128,12 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
 
         unlink(public_path()  . $user->photo->file);
+
+        $posts = $user->posts;
+
+        foreach ($posts as $post) {
+            unlink(public_path()  . $post->photo->file);
+        }
 
         $user->delete();
 
