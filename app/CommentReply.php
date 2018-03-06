@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class CommentReply extends Model
 {
     	protected $fillable = [
-			'post_id',
+			'comment_id',
 			'author',
 			'email',
 			'body',
+			'photo',
 			'is_active'
 		];
 

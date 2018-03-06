@@ -365,7 +365,7 @@
 <!-- jQuery -->
 
 
-<script src="{{asset('js/libs.js')}}"></script>
+<script src="{{asset('js/lib.js')}}"></script>
 
 @yield('footer')
 

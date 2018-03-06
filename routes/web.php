@@ -48,3 +48,10 @@ Route::get('setlocale/{locale}', function ($locale) {
   return redirect()->back();
 });
 
+
+
+Route::group(['middleware' => 'auth'], function(){
+
+	Route::post('comment/reply', 'CommentRepliesController@createReply');
+
+});

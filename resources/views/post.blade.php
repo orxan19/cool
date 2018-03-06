@@ -18,6 +18,9 @@
 
 		<hr>
 
+@if (Auth::check())
+
+
 		<div class="well">
 			@if (Session::has('comment_message'))
 				<div class="alert alert-info">{{Session::get('comment_message')}}</div>
@@ -39,10 +42,89 @@
 
   {!! Form::close() !!}
 		</div>
+
+		@endif
+
+<hr>
+
+@if (count($comments) > 0)
+	@foreach ($comments as $comment)
+		<div class="media">
+		<a href="#" class="pull-left">
+			<img src="{{$comment->photo}}" width="64px" class="img-responsive media-object"  alt="">
+		</a>
+		
+		<div class="media-body">
+			<h4 class="media-heading">{{$comment->author}}
+				<small>{{$comment->created_at->diffForHumans()}}</small>
+			</h4>
+			<p>{{$comment->body}}</p>
+
+
+@if (count($comment->replies) > 0)
+
+@foreach ($comment->replies as $reply)
+
+	
+
+	<div class="media nested-comment">
+				<a href="" class="pull-left">
+					<img width="64px" src="{{$reply->photo}}" alt="" class="media-object img-responsive">
+				</a>
+				<div class="media-body">
+					<h4 class="media-heading">{{$reply->author}}
+						<small>{{$reply->created_at->diffForHumans()}}</small>
+					</h4>
+					<p>{{$reply->body}}</p>
+
+				</div>
+			</div>
+
+	
+@endforeach
+
+			@endif
+
+	<div class="comment-reply-container">
+		<button class="toggle-reply btn btn-primary pull-right col-sm-2">Reply</button>
+
+		<div class="comment-reply col-sm-10">
+
+		
+			{!! Form::open(['method' => 'POST', 'action' => 'CommentRepliesController@createReply']) !!}
+
+    <div class="form-group">
+<input type="hidden" name="comment_id" value="{{$comment->id}}">
+    	{!!Form::textarea('body', null, ['class' => 'form-control', 'rows' => 1,'placeholder' =>'Reply'])!!}
+    </div>
+
+    <div class="form-group">
+			{!!Form::submit('Submit', ['class' => 'btn btn-primary'])!!}
+    </div>
+
+  {!! Form::close() !!}
+
+  </div>
+
+		</div>
+		</div><!-- comment reply container-->
+	</div>
+	@endforeach
+	
+@endif
+
 @endsection
 
 
+@section('scripts')
+	<script>
+		$('.comment-reply-container .toggle-reply').click(function(){
 
+			$(this).next().slideToggle('slow');
+
+		});
+	</script>
+@endsection
 
 
 

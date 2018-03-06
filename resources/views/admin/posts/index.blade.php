@@ -25,6 +25,8 @@
         <th>Category</th>
         <th>Title</th>
         <th>Body</th>
+        <th>View post</th>
+        <th>View comments</th>
         <th>Created</th>
         <th>Updated</th>
       </tr>
@@ -35,19 +37,21 @@
 		
 		@foreach ($posts as $post)
 			      <tr>
-	             <td>{{$post->id}}</td>
-                 <td>
+ <td>{{$post->id}}</td>
+ <td>
 
-                    <img src="{{$post->photo ? $post->photo->file : 'http://via.placeholder.com/350x150?text=NoImage'}}" width="100px" alt="">
+    <img src="{{$post->photo ? $post->photo->file : 'http://via.placeholder.com/350x150?text=NoImage'}}" width="100px" alt="">
 
-                </td>
-	             <td>{{$post->user->name}}</td>
-	             <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
-	             
-	             <td><a href="{{ route('posts.edit', $post->id) }}">{{$post->title}}</a></td>
-	             <td>{{str_limit($post->body, 17)}}</td>
-	             <td>{{$post->created_at->diffForHumans()}}</td>
-	             <td>{{$post->updated_at->diffForHumans()}}</td>
+</td>
+ <td>{{$post->user->name}}</td>
+ <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
+ 
+ <td><a href="{{ route('posts.edit', $post->id) }}">{{$post->title}}</a></td>
+ <td>{{str_limit($post->body, 17)}}</td>
+ <td><a href="{{ route('home.post', $post->id) }}">View Post</a></td>
+ <td><a href="{{ route('comments.show', $post->id) }}">Comments</a></td>
+ <td>{{$post->created_at->diffForHumans()}}</td>
+ <td>{{$post->updated_at->diffForHumans()}}</td>
             </tr>
 		@endforeach
 
