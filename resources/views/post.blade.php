@@ -65,6 +65,17 @@
 
 @foreach ($comment->replies as $reply)
 
+{{-- Eger reply->active == 1 olan yoxdusa kastil ))))))))) --}}
+
+@php
+	$flag = false;
+@endphp
+
+@if ($reply->is_active == 1)
+
+@php
+	$flag = true;
+@endphp
 	
 
 	<div class="media nested-comment">
@@ -79,9 +90,19 @@
 
 				</div>
 			</div>
+			
+	@endif
+
 
 	
+	
 @endforeach
+
+@php
+	if(!$flag){
+		echo "<h1>No replies</h1>";
+	}
+@endphp
 
 			@endif
 
@@ -108,6 +129,7 @@
 
 		</div>
 		</div><!-- comment reply container-->
+
 	</div>
 	@endforeach
 	

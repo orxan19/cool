@@ -13,6 +13,7 @@
 					<th>Email</th>
 					<th>Body</th>
 					<th>Post</th>
+					<th>Replies</th>
 					<th>Approving</th>
 					<th>Deleting</th>
 				</tr>
@@ -26,6 +27,7 @@
 						<td>{{$comment->email}}</td>
 						<td>{{str_limit($comment->body, 10)}}</td>
 						<td><a href="{{ route('home.post', $comment->post->id) }}">View Post</a></td>
+						<td><a href="{{ route('replies.show', $comment->id) }}">View Replies</a></td>
 
 						<td>
 							@if ($comment->is_active == 1)
