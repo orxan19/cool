@@ -111,8 +111,10 @@ class AdminPostsController extends Controller
 
         if($file = $request->file('photo_id')){
 
-            unlink(public_path()  . $post->photo->file);
-
+            if($post->file){
+               unlink(public_path()  . $post->photo->file); 
+            }
+            
             $name = time() . $file->getClientOriginalName();
 
             $file->move('images', $name);
@@ -136,7 +138,9 @@ class AdminPostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        unlink(public_path()  . $post->photo->file);
+        if($post->file){
+               unlink(public_path()  . $post->photo->file); 
+            }
         $post->delete();
 
         Session::flash('deleted_post', "The post number ${id} has been deleted");

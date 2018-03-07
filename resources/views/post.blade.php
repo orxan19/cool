@@ -13,11 +13,11 @@
 
 		<p><span class="glyphicon glyphicon-time"></span> Posted {{$post->created_at->diffForHumans()}}</p>
 	
-		<img src="{{$post->photo->file}}" class="img-responsive" alt=""><hr>
-		<p>{{$post->body}}</p>
+		<img src="{{$post->photo ? $post->photo->file  :  ''}}" class="img-responsive" alt=""><hr>
+		<p>{!!$post->body!!}</p>
 
 		<hr>
-
+	
 @if (Auth::check())
 
 

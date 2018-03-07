@@ -4,6 +4,7 @@
 
 	<h1>Edit Post</h1>
    @include('includes.form_error')
+     @include('includes.tinyeditor')
  <div class="row">
 
     <div class="col-md-4">
