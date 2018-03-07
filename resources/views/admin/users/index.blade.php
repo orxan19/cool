@@ -37,7 +37,7 @@
 		@foreach ($users as $user)
 			<tr>
                 <td>{{$user->id}}</td>
-                <td><img height="50px" src="{{$user->photo ? $user->photo->file : 'http://via.placeholder.com/350x150?text=NoImage'}}" alt=""></td>
+                <td><img height="50px" src="{{$user->photo->file}}" alt=""></td>
                 <td><a href="{{ route('users.edit', $user->id) }}">{{$user->name}}</a></td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role->name}}</td>
@@ -49,5 +49,7 @@
 
     @endif
     </tbody>
+
+   
   </table>
 @endsection
