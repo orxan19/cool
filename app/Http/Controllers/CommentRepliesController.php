@@ -54,7 +54,7 @@ class CommentRepliesController extends Controller
 
         CommentReply::create($data);
 
-        $request->session()->flash('reply_message', 'Your reply has been submitted and is waiting moderation');
+        $request->session()->flash('reply_message', 'Your reply has been submitted and is waiting moderation.');
 
         return redirect()->back();
     }
